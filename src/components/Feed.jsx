@@ -7,9 +7,16 @@ import { fetchFromAPI } from "../utils/fetchFromAPI";
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("New");
   /**useEFfect is a lifecycle mgmt hook, which will decide when the components will be initially loaded. empty dependency array means it will be only run when we reload the page  */
+  const [videos, setVideos] = useState([]);
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`);
+   // setVideos(null)
+    /** fetchFromAPI is async function we cannot simply say const data = fetchFrom~ because it returns promise, for Async function we have to chain .then to it.*/
+    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
+      /** .then function will be executed once we actually call this function.
+       * once it returns as promise. So to be able to get data, first parameter of .then  */
+      .then((data) => setVideos(data.items));
   }, [selectedCategory]);
+  /** how do you change the category? by passing the necessary states into SideBar components */
 
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
@@ -39,7 +46,7 @@ const Feed = () => {
           {selectedCategory}
           <span style={{ color: "#F31503", marginLeft: "10px" }}>videos</span>
         </Typography>
-        <Videos videos={[]} />
+        <Videos videos={videos} />
       </Box>
     </Stack>
   );

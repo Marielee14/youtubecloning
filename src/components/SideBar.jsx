@@ -2,6 +2,7 @@ import React from "react";
 import { Stack } from "@mui/material";
 import { categories } from "../utils/constants";
 
+/** props  */
 const SideBar = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <Stack
