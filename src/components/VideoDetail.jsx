@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { Videos} from "./";
+import { Videos } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const VideoDetail = () => {
@@ -21,9 +21,11 @@ const VideoDetail = () => {
       (data) => setVideos(data.items)
     );
   }, [id]);
-
+  // if there's warning sign, "snippet is null"
   if (!videoDetail?.snippet) return "...loading";
-
+  /**object destructuring
+   * const {snippet} = videoDetail
+   */
   const {
     snippet: { title, channelId, channelTitle },
     statistics: { viewCount, likeCount },
